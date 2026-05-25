@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Conecta RH | Inovação na comunicação Colaboradores e RH</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f9fafc;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --azul-profundo: #0a2540;
+            --azul-escuro: #0f3b5c;
+            --verde-destaque: #2b9348;
+            --verde-suave: #55a630;
+            --branco: #ffffff;
+            --cinza-fundo: #f1f5f9;
+            --borda-suave: #e2e8f0;
+            --texto-sec: #475569;
+            --shadow-sm: 0 8px 20px -6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 20px 30px -12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 25px 35px -14px rgba(0, 0, 0, 0.12);
+            --gradiente-azul: linear-gradient(135deg, #0a2540 0%, #1b4a6e 100%);
+            --gradiente-hero: linear-gradient(120deg, #0a2540 0%, #2b9348 120%);
+        }
+
+        /* Animações globais */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .reveal.ativo {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar fixa premium */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradiente-hero);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .logo i {
+            background: none;
+            color: var(--verde-destaque);
+            font-size: 1.4rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--azul-profundo);
+            transition: 0.2s;
+        }
+        .nav-links a:hover { color: var(--verde-destaque); }
+        .btn-outline-nav {
+            border: 1.5px solid var(--azul-profundo);
+            padding: 0.35rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            background: transparent;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .btn-outline-nav:hover {
+            background: var(--azul-profundo);
+            color: white;
+            border-color: var(--azul-profundo);
+        }
+
+        /* Botões principais */
+        .btn-primary {
+            background: var(--azul-profundo);
+            color: white;
+            padding: 0.75rem 1.6rem;
+            border-radius: 48px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .btn-primary:active { transform: scale(0.96); background: var(--verde-destaque); }
+        .btn-secondary {
+            background: transparent;
+            border: 1.5px solid var(--azul-profundo);
+            color: var(--azul-profundo);
+            padding: 0.75rem 1.6rem;
+            border-radius: 48px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .btn-secondary:hover { background: rgba(10,37,64,0.05); transform: translateY(-2px);}
+
+        .container {
+            width: 100%;
+            padding: 0 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        section {
+            padding: 3.5rem 0;
+        }
+        /* Hero melhorado */
+        .hero {
+            padding-top: 6rem;
+            padding-bottom: 2rem;
+        }
+        .hero-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: var(--gradiente-hero);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        .hero p {
+            color: var(--texto-sec);
+            margin: 0.8rem 0;
+            line-height: 1.45;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+        .hero-illustration {
+            background: linear-gradient(145deg, #ffffff, #f0f4fe);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(43,147,72,0.15);
+            transition: transform 0.2s;
+        }
+        .hero-illustration i {
+            font-size: 3.2rem;
+            margin: 0 0.3rem;
+        }
+        .mockup-card {
+            background: rgba(255,255,255,0.7);
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        /* Cards modernos */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.8rem;
+        }
+        .card {
+            background: var(--branco);
+            border-radius: 1.4rem;
+            padding: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--borda-suave);
+            cursor: default;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--verde-destaque);
+        }
+        .card i {
+            font-size: 2rem;
+            color: var(--verde-destaque);
+            margin-bottom: 0.7rem;
+        }
+        .card h3 { font-size: 1.05rem; margin-bottom: 0.3rem; font-weight: 700;}
+        .card p { font-size: 0.8rem; color: var(--texto-sec); line-height: 1.3;}
+        
+        .section-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            color: var(--azul-profundo);
+            letter-spacing: -0.3px;
+        }
+        .section-sub {
+            color: var(--texto-sec);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+        }
+        .smart-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-top: 1.2rem;
+        }
+        .smart-item {
+            background: white;
+            border-radius: 2rem;
+            padding: 0.7rem 1.2rem;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: var(--shadow-sm);
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        .smart-item:hover { border-bottom-color: var(--verde-destaque); transform: translateY(-2px);}
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin: 0.8rem 0;
+        }
+        .badge {
+            background: var(--cinza-fundo);
+            padding: 0.3rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .bg-soft {
+            background: var(--cinza-fundo);
+        }
+        footer {
+            background: var(--azul-profundo);
+            color: #cbd5e6;
+            padding: 2.2rem 0 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .footer-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+        .social i {
+            font-size: 1.4rem;
+            margin: 0 0.6rem;
+            transition: 0.2s;
+            color: #94a3b8;
+        }
+        .social i:hover { color: var(--verde-destaque); transform: scale(1.05);}
+        hr {
+            margin: 1.2rem 0;
+            border-color: #2d4259;
+        }
+        @media (min-width: 768px) {
+            .hero-grid { flex-direction: row; align-items: center; gap: 3rem; }
+            .hero-grid > div { flex: 1; }
+            .hero h1 { font-size: 3.2rem; }
+            .card-grid { gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));}
+            .footer-flex { flex-direction: row; justify-content: space-between; text-align: left; }
+            .section-title { font-size: 2.2rem; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 0 1.2rem; }
+            .navbar { padding: 0.65rem 1rem; }
+            .hero h1 { font-size: 1.9rem; }
+            .card { padding: 1rem; }
+            .section-title { font-size: 1.6rem; }
+            .btn-primary, .btn-secondary { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
+        }
+        /* detalhes premium */
+        .gradient-border {
+            background: linear-gradient(white, white) padding-box, var(--gradiente-hero) border-box;
+            border: 1px solid transparent;
+        }
+        .status-light {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 10px;
+            background: var(--verde-destaque);
+            margin-right: 6px;
+            animation: pulse 1.8s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.8);}
+            100% { opacity: 1; transform: scale(1.2);}
+        }
+        .text-gradient {
+            background: var(--gradiente-hero);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo"><i class="fas fa-handshake"></i> Conecta RH</div>
+    <div class="nav-links">
+        <a href="#">Início</a>
+        <a href="#solucao">Solução</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#" class="btn-outline-nav" id="nav-entrar">Acessar</a>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero Section aprimorada -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <h1>Conecta RH</h1>
+                <p style="font-size: 1.25rem; font-weight: 600; color: var(--azul-escuro);">Conectando colaboradores e RH para construir uma empresa melhor.</p>
+                <p><strong>Envie ideias, sugestões e melhorias diretamente ao RH com rapidez, segurança e anonimato.</strong></p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" id="btnEnviar"><i class="fas fa-paper-plane"></i> Enviar Sugestão</button>
+                    <button class="btn-secondary" id="btnEntrar"><i class="fas fa-user-check"></i> Entrar</button>
+                </div>
+            </div>
+            <div class="hero-illustration">
+                <i class="fas fa-users"></i> <i class="fas fa-comment-dots" style="color: var(--verde-destaque);"></i> <i class="fas fa-chart-line"></i>
+                <div class="mockup-card">
+                    <div style="display: flex; gap: 8px; align-items: center;"><span class="status-light"></span> <span style="font-size:0.75rem; font-weight:500;">Comunicação ativa</span></div>
+                    <div style="background: var(--azul-profundo); height: 4px; width: 45px; border-radius: 4px; margin: 0.6rem 0;"></div>
+                    <div style="display: flex; justify-content: space-between;"><span><i class="fas fa-user-secret"></i> Modo anônimo</span> <span class="badge" style="background: var(--verde-destaque); color:white;">Ativo</span></div>
+                    <div><i class="fas fa-clock"></i> Resposta em até 30 dias</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problema refinado -->
+    <section class="bg-soft">
+        <div class="container">
+            <div class="card" style="text-align: center; max-width: 800px; margin: 0 auto; background: white;">
+                <i class="fas fa-chart-line" style="font-size: 2rem; color: #e67e22;"></i>
+                <h3 style="font-size: 1.4rem;">Problema identificado</h3>
+                <p style="font-size: 1rem;">Falha na comunicação entre RH e colaboradores, dificultando a resolução de problemas diários e minando o clima organizacional.</p>
+                <div class="badge-list" style="justify-content: center;">
+                    <span class="badge"><i class="fas fa-comment-slash"></i> Ruídos</span>
+                    <span class="badge"><i class="fas fa-building"></i> Hierarquia</span>
+                    <span class="badge"><i class="fas fa-frown"></i> Insatisfação</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solução com funcionalidades -->
+    <section id="solucao">
+        <div class="container">
+            <h2 class="section-title">Solução <span class="text-gradient">inteligente</span></h2>
+            <p class="section-sub">Sistema online onde colaboradores enviam sugestões, críticas e ideias de melhoria diretamente para o RH, com retorno garantido em até 30 dias.</p>
+            <div class="card-grid">
+                <div class="card"><i class="fas fa-user-secret"></i><h3>Anonimato total</h3><p>Opção de envio sigiloso</p></div>
+                <div class="card"><i class="fas fa-reply-all"></i><h3>Resposta direta</h3><p>RH responde individualmente</p></div>
+                <div class="card"><i class="fas fa-chart-simple"></i><h3>Feedback estruturado</h3><p>Avaliação das soluções</p></div>
+                <div class="card"><i class="fas fa-tachometer-alt"></i><h3>Painel administrativo</h3><p>Métricas e gestão</p></div>
+                <div class="card"><i class="fas fa-tags"></i><h3>Categorias inteligentes</h3><p>Sugestões, reclamações, ideias</p></div>
+                <div class="card"><i class="fas fa-history"></i><h3>Histórico completo</h3><p>Acompanhe todas interações</p></div>
+            </div>
+            <div class="mockup-card" style="background: #eef2ff; margin-top: 1rem;"><i class="fas fa-mobile-alt"></i> <strong>Interface moderna e responsiva</strong> — Disponível em qualquer dispositivo</div>
+        </div>
+    </section>
+
+    <!-- Público-alvo elegante -->
+    <section class="bg-soft">
+        <div class="container">
+            <h2 class="section-title">Para quem é o Conecta RH?</h2>
+            <p class="section-sub">Empresas com alta demanda de funcionários e times que desejam evolução contínua.</p>
+            <div class="card-grid">
+                <div class="card"><i class="fas fa-building"></i><h3>Grandes empresas</h3><p>+1.000 colaboradores</p></div>
+                <div class="card"><i class="fas fa-chart-line"></i><h3>PMEs & Startups</h3><p>Escalabilidade e cultura</p></div>
+                <div class="card"><i class="fas fa-user-tie"></i><h3>Funcionários</h3><p>Protagonismo e voz</p></div>
+                <div class="card"><i class="fas fa-handshake"></i><h3>RH estratégico</h3><p>Decisões baseadas em dados</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SMART Objective -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Objetivo SMART</h2>
+            <div style="background: white; border-radius: 1.8rem; padding: 1.5rem; box-shadow: var(--shadow-md);">
+                <p style="font-weight: 700; font-size: 1.05rem;">“Permitir que colaboradores enviem ideias e sugestões para melhorar a empresa de maneira prática, organizada e eficiente.”</p>
+                <div class="smart-flex">
+                    <div class="smart-item"><i class="fas fa-bolt"></i> Comunicação ágil</div>
+                    <div class="smart-item"><i class="fas fa-calendar-check"></i> Retorno ≤30 dias</div>
+                    <div class="smart-item"><i class="fas fa-chart-line"></i> +45% participação</div>
+                    <div class="smart-item"><i class="fas fa-heartbeat"></i> Clima saudável</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefícios animados -->
+    <section id="beneficios" class="bg-soft">
+        <div class="container">
+            <h2 class="section-title">Benefícios transformadores</h2>
+            <p class="section-sub">Pequenas ações geram grande impacto no ambiente corporativo.</p>
+            <div class="card-grid">
+                <div class="card"><i class="fas fa-comments"></i><h3>Comunicação interna fluida</h3></div>
+                <div class="card"><i class="fas fa-smile-wink"></i><h3>Funcionários engajados</h3></div>
+                <div class="card"><i class="fas fa-hand-peace"></i><h3>Redução de conflitos</h3></div>
+                <div class="card"><i class="fas fa-leaf"></i><h3>Ambiente organizacional</h3></div>
+                <div class="card"><i class="fas fa-eye"></i><h3>Mais transparência</h3></div>
+                <div class="card"><i class="fas fa-recycle"></i><h3>Sustentabilidade (menos papel)</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impacto social, econômico e ambiental -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Efeito Social, Econômico e Ambiental</h2>
+            <div class="badge-list">
+                <span class="badge"><i class="fas fa-tree"></i> Redução de papel</span>
+                <span class="badge"><i class="fas fa-globe"></i> Comunicação 100% digital</span>
+                <span class="badge"><i class="fas fa-handshake"></i> Menos conflitos internos</span>
+                <span class="badge"><i class="fas fa-chart-line"></i> Maior participação (+38%)</span>
+                <span class="badge"><i class="fas fa-chart-pie"></i> Gestão empresarial otimizada</span>
+            </div>
+            <div class="hero-illustration mt-2" style="margin-top: 1rem;"><i class="fas fa-charging-station fa-2x" style="color: var(--verde-destaque);"></i> <strong>ESG alinhado:</strong> impacto positivo comprovado em empresas parceiras.</div>
+        </div>
+    </section>
+
+    <!-- Viabilidade aprimorada -->
+    <section class="bg-soft">
+        <div class="container">
+            <h2 class="section-title">Viabilidade e Acesso</h2>
+            <p>Muitos colaboradores não se sentem ouvidos. O Conecta RH quebra barreiras com tecnologia de baixo custo e alta escalabilidade.</p>
+            <div class="card-grid mt-2">
+                <div class="card"><i class="fas fa-user-friends"></i> Interface intuitiva</div>
+                <div class="card"><i class="fas fa-coins"></i> Baixo investimento</div>
+                <div class="card"><i class="fas fa-cloud-upload-alt"></i> Plataforma SaaS</div>
+                <div class="card"><i class="fas fa-shield-alt"></i> Proteção de dados avançada</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Restrições e Segurança -->
+    <section id="seguranca">
+        <div class="container">
+            <h2 class="section-title">Segurança e Boas Práticas</h2>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+                    <span class="badge"><i class="fas fa-check-circle"></i> Moderação humanizada</span>
+                    <span class="badge"><i class="fas fa-ban"></i> Anti-assédio / ofensas</span>
+                    <span class="badge"><i class="fas fa-id-card"></i> Login com matrícula</span>
+                    <span class="badge"><i class="fas fa-filter"></i> Antispam inteligente</span>
+                    <span class="badge"><i class="fas fa-lock"></i> Criptografia AES-256</span>
+                    <span class="badge"><i class="fas fa-headset"></i> Suporte 24/7</span>
+                </div>
+                <div class="hero-illustration" style="background: #eef2ff;"><i class="fas fa-shield-virus fa-2x"></i> <br> Conformidade com LGPD e segurança corporativa</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funcionalidades extras + Status tracking -->
+    <section class="bg-soft">
+        <div class="container">
+            <h2 class="section-title">Recursos Completos</h2>
+            <div class="card-grid">
+                <div class="card"><i class="fas fa-sign-in-alt"></i> Login RH / Funcionário</div>
+                <div class="card"><i class="fas fa-chalkboard"></i> Dashboard com KPIs</div>
+                <div class="card"><i class="fas fa-bell"></i> Notificações em tempo real</div>
+                <div class="card"><i class="fas fa-comment-dots"></i> Chat interno integrado</div>
+                <div class="card"><i class="fas fa-paperclip"></i> Anexo de arquivos (imagem, PDF)</div>
+                <div class="card"><i class="fas fa-tasks"></i> Status: <span class="badge">Em análise</span> → <span class="badge">Respondido</span> → <span class="badge">Resolvido</span></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container footer-flex">
+        <div>
+            <h3 style="color:white; display: flex; gap: 6px;"><i class="fas fa-handshake" style="color: var(--verde-destaque);"></i> Conecta RH</h3>
+            <p style="font-size: 0.8rem;">Tecnologia que aproxima pessoas e resultados</p>
+        </div>
+        <div>
+            <p><strong>Contato RH</strong><br>ola@conectahr.com.br</p>
+        </div>
+        <div class="social">
+            <i class="fab fa-linkedin"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-github"></i>
+        </div>
+    </div>
+    <hr>
+    <div class="container" style="text-align: center; font-size: 0.7rem;">
+        <p>© 2025 Conecta RH - Todos os direitos reservados.</p>
+        <p>Equipe: Gustavo Xavier, Guilherme e Rezuelen | Orientadora: Eleni</p>
+    </div>
+</footer>
+
+<script>
+    // Scroll Reveal aprimorado
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('ativo');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: "0px 0px -20px 0px" });
+    document.querySelectorAll('.card, .hero-illustration, .smart-item, .section-title, .mockup-card, .hero-grid > div, .badge-list').forEach(el => {
+        el.classList.add('reveal');
+        observer.observe(el);
+    });
+    setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight - 60) el.classList.add('ativo');
+        });
+    }, 150);
+
+    // Botões interativos
+    const btnEnviar = document.getElementById('btnEnviar');
+    const btnEntrar = document.getElementById('btnEntrar');
+    const navEntrar = document.getElementById('nav-entrar');
+    const alertMsg = (msg) => alert(msg);
+    if(btnEnviar) btnEnviar.addEventListener('click', () => alertMsg("📬 Envio de sugestão: Em breve você poderá enviar ideias anonimamente. Solicite acesso ao RH da sua empresa."));
+    if(btnEntrar) btnEntrar.addEventListener('click', () => alertMsg("🔐 Área restrita: Colaboradores acessam com matrícula. RH possui dashboard avançado. Em implementação."));
+    if(navEntrar) navEntrar.addEventListener('click', (e) => { e.preventDefault(); alertMsg("🔐 Login integrado em breve. Cadastre sua empresa para demonstração."); });
+
+    // Smooth scroll para links internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && href !== "#" && href !== "") {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
